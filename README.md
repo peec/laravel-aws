@@ -430,6 +430,64 @@ Route::post('/avatars', function (){
 ```
 
 
+### How do i test that queuing with SQS works?
+
+Try the following:
+
+
+```
+php artisan make:job TestQueue
+```
+
+
+`app/Jobs/TestQueue.php`
+
+```
+
+class TestQueue implements ShouldQueue
+{
+    ...
+    
+    
+    public function handle()
+    {
+        Log::info('SQS run the job....' . date('r'));
+    }
+    
+    ....
+    
+    
+}
+
+```
+
+
+Create a route
+
+```
+
+Route::get('/queue-test-job', function (){
+
+    $job = (new \App\Jobs\TestQueue())
+        ->delay(\Carbon\Carbon::now()->addMinute(1));
+
+    dispatch($job);
+
+    return back();
+});
+```
+
+
+Deploy
+
+```
+eb deploy
+```
+
+
+Visit `/queue-test-job` in the production url. Wait a minute and download log files from AWS Web console. You should see 'SQS run the job...'.
+
+
 
 # Troubleshooting 
 
