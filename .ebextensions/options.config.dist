@@ -28,7 +28,7 @@ option_settings:
         CacheNodeType: cache.t2.micro
         NumCacheNodes: 1
         Engine: memcached
-        SQSVisibilityTimeout: 60
+        SQSVisibilityTimeout: 40
         # SSL DOMAIN
         DomainName: ''
     "aws:autoscaling:asg":
