@@ -1,0 +1,80 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "php-app",
+      "host": {
+        "sourcePath": "/var/app/current/web"
+      }
+    },
+    {
+      "name": "nginx-proxy-conf",
+      "host": {
+        "sourcePath": "/var/app/current/server_env/proxy/conf.d"
+      }
+    },
+    {
+      "name": "varnish-lib",
+      "host": {
+        "sourcePath": "/var/lib/varnish"
+      }
+    }
+
+  ],
+  "containerDefinitions": [
+    {
+      "name": "nginx-proxy",
+      "image": "nginx",
+      "essential": false,
+      "memory": 256,
+      "links": [
+        "php-app"
+      ],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "environment": [
+        {
+          "name": "NGINX_PORT",
+          "value": "80"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "php-app",
+          "containerPath": "/src"
+        },
+        {
+          "sourceVolume": "awseb-logs-nginx-proxy",
+          "containerPath": "/var/log/nginx"
+        },
+        {
+          "sourceVolume": "nginx-proxy-conf",
+          "containerPath": "/etc/nginx/conf.d",
+          "readOnly": true
+        }
+      ]
+    },
+    {
+      "name": "php-app",
+      "image": "peec/laravel-docker-aws",
+      "essential": true,
+      "memory": 512,
+      "environment": [
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "php-app",
+          "containerPath": "/src"
+        },
+        {
+          "sourceVolume": "awseb-logs-php-app",
+          "containerPath": "/src/storage/logs"
+        }
+      ]
+    }
+  ]
+}

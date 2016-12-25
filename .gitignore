@@ -1,0 +1,13 @@
+# Editors
+/.idea
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+
+# Our ignores
+/.ebextensions/options.config
+/web

@@ -1,0 +1,49 @@
+option_settings:
+    "aws:elasticbeanstalk:application:environment":
+
+        IS_ON_AWS: true
+
+        # AWS details so docker image can retrieve resources.
+        AWS_ACCESS_KEY_ID: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        AWS_SECRET_ACCESS_KEY: "yyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+        AWS_DEFAULT_REGION: "eu-west-1"
+
+        # Github token
+        GITHUB_OAUTH_TOKEN: "zzzzzzzzzzzzzzzzzzzzzzzzz"
+
+        # S3 region
+        MEDIA_S3_REGION: "eu-west-1"
+
+        # Laravel specifics
+        APP_ENV: "production"
+        APP_DEBUG: false
+        APP_URL: "http://localhost"
+        APP_KEY: "base64:JIiitjB44NCn3ymIb0c+ogKLl4J4i7sLC81LfrogM7s"
+        DB_CONNECTION: "mysql"
+        MEMCACHED_PERSISTENT_ID: "app"
+
+        # PHP configuration
+        PHP_MEMORY_LIMIT: "1G"
+
+    "aws:elasticbeanstalk:customoption":
+        ElasticSearchInstanceCount: 1
+        ElasticSearchInstanceType: "t2.micro.elasticsearch"
+        CacheNodeType: cache.t2.micro
+        NumCacheNodes: 1
+        Engine: memcached
+        # SSL DOMAIN
+        DomainName: ''
+    "aws:autoscaling:asg":
+        Cooldown: 3600
+    "aws:autoscaling:trigger":
+        BreachDuration: '15'
+        EvaluationPeriods: '1'
+        LowerThreshold: '70'
+        UpperThreshold: '90'
+        MeasureName: CPUUtilization
+        Period: '15'
+        Statistic: Average
+        Unit: Percent
+    "aws:elasticbeanstalk:command":
+        DeploymentPolicy: AllAtOnce
+        Timeout: 2000

@@ -1,0 +1,34 @@
+# You can tell the EB CLI to ignore certain files in your project directory with a .ebignore file.
+# This file works like a .gitignore. When you deploy your project directory to Elastic Beanstalk
+# and create a new application version, the EB CLI will not include files specified by the .ebignore
+# in the source bundle that it creates.
+
+# If no .ebignore is present, but a .gitignore is, the EB CLI will ignore files specified in the .gitignore.
+# If an .ebignore file is present, the EB CLI will not read the .gitignore.
+
+
+
+# Editors
+/.idea
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+
+# Our ignores
+/.ebextensions/options.config.dist
+
+
+
+# Laravel (as of 5.3).
+/web/node_modules
+/web/public/storage
+/web/storage/*.key
+/web/vendor
+/web/.idea
+/web/Homestead.json
+/web/Homestead.yaml
+/web/.env
