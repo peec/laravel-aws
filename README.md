@@ -84,12 +84,15 @@ cp  .ebextensions/options.config.dist .ebextensions/options.config
 ```
 
 
-Configure these:
+Configure these environment variables.
 
-- AWS_ACCESS_KEY_ID <-- Get this via AWS IAM
-- AWS_SECRET_ACCESS_KEY <-- Get this via AWS IAM
-- GITHUB_OAUTH_TOKEN  <-- Token to get composer deps. You can get this in the github profile settings.
-- APP_KEY <-- Set it to the laravel app key found in web/.env dir. (laravel dev copy).
+| Variable               | Description                                                                        |
+| ---------------------- |:----------------------------------------------------------------------------------:|
+| AWS_ACCESS_KEY_ID      | Get this via AWS IAM                                                               |
+| AWS_SECRET_ACCESS_KEY  | Get this via AWS IAM                                                               |
+| GITHUB_OAUTH_TOKEN     | Token to get composer deps. You can get this in the github profile settings.       |
+| APP_KEY                | Set it to the laravel app key found in web/.env dir. (laravel dev copy).           |
+
 
 #### Custom policies
 
@@ -101,11 +104,13 @@ These are needed to fetch the associated resources information (elasticache). An
 "ec2:Describe*",
 "cloudformation:Describe*",
 "elasticbeanstalk:Describe*"
+"ses.*"
 ```
 
 
 
-For this to work you need to modify the beanstalk role in AWS IAM
+
+**Add custom policy  to the elasticbeanstalk-ec2-role:**
 
 Add this ( IAM -> Roles -> aws-elasticbeanstalk-ec2-role -> Inline Policies -> Create Role Policy -> Custom Policy ) and here is what you add:
 
@@ -140,7 +145,11 @@ composer require league/flysystem-aws-s3-v3 ~1.0
 composer require aws/aws-sdk-php ~3.0
 ```
 
-And also we want some new env variables.
+
+The configuration of this deployment will automatically add a number of new environment variables available to use by laravel.
+Lets configure the files needed with `env()` calls where needed.
+
+
 
 
 `app/config/filesystems.php`
