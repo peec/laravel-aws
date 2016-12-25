@@ -11,9 +11,6 @@ option_settings:
         # Github token
         GITHUB_OAUTH_TOKEN: "zzzzzzzzzzzzzzzzzzzzzzzzz"
 
-        # S3 region
-        MEDIA_S3_REGION: "eu-west-1"
-
         # Laravel specifics
         APP_ENV: "production"
         APP_DEBUG: false

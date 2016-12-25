@@ -171,6 +171,23 @@ And also we want some new env variables.
  ....
 ```
 
+`app/config/services.php`
+
+```
+ ....
+    
+    'ses' => [
+        'key' => env('SES_KEY'),
+        'secret' => env('SES_SECRET'),
+        'region' => env('SES_REGION', 'eu-west-1'),
+    ],
+
+ ....
+```
+
+
+
+
 ## Configure AWS
 
 
