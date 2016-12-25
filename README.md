@@ -162,6 +162,15 @@ And also we want some new env variables.
 ```
 
 
+`app/config/session.php`
+
+```
+ ....
+    
+    'store' => env('SESSION_CACHE_STORE', null),
+ ....
+```
+
 ## Configure AWS
 
 
