@@ -186,6 +186,23 @@ And also we want some new env variables.
 ```
 
 
+`app/config/queue.php`
+
+```
+ ....
+    
+
+    'sqs' => [
+        'driver' => 'sqs',
+        'key' => env('SQS_KEY'),
+        'secret' => env('SQS_SECRET'),
+        'prefix' => env('SQS_PREFIX'),
+        'queue' => env('SQS_QUEUE'),
+        'region' => env('SQS_REGION'),
+    ],
+
+....
+```
 
 
 ## Configure AWS
