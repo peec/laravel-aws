@@ -4,6 +4,14 @@ For laravel 5.3+.
 
 This can be used with Elastic Beanstalk Multi Docker Container.
 
+## By using this setup to deploy your apps your app will:
+
+- Have one or more app instances depending on the load of your app
+- Have a separate cache cluster server with one or multiple cache nodes (memcached).
+- Have a separate database server  (default is mysql)
+- CDN server configured and ready to use for your `app.css` and `app.js`.
+
+
 ## What is special about this setup?
 
 - Database is automatically configured. No configuration needed what so ever.
