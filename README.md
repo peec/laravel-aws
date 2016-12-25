@@ -131,13 +131,13 @@ Add this ( IAM -> Roles -> aws-elasticbeanstalk-ec2-role -> Inline Policies -> C
 ## Configure Laravel
 
 
-### Store uploaded files using s3
 
-Lets first allow s3 uploads. This is also explained in the laravel docs.
+First we need to install some dependencies that laravel requires (also explained in laravel docs):
 
 ```
 cd web
 composer require league/flysystem-aws-s3-v3 ~1.0
+composer require aws/aws-sdk-php ~3.0
 ```
 
 And also we want some new env variables.
