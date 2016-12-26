@@ -22,6 +22,11 @@ option_settings:
         # PHP configuration
         PHP_MEMORY_LIMIT: "1G"
 
+
+        # If web folder is in a separate structure, you can deploy by git repository.
+        APP_GIT_REPOSITORY: ""
+        APP_GIT_BRANCH: "master"
+
     "aws:elasticbeanstalk:customoption":
         ElasticSearchInstanceCount: 1
         ElasticSearchInstanceType: "t2.micro.elasticsearch"
