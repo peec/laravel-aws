@@ -14,3 +14,4 @@
 
 /server_env/deploykeys/*
 !/server_env/deploykeys/.gitkeep
+!/server_env/deploykeys/config
