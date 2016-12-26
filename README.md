@@ -363,6 +363,33 @@ exit
 # Q / A
 
 
+### I want to keep my laravel app separated from this deploy configuration.
+
+Okay.
+
+```
+ssh-keygen -t rsa
+cp -R ~/.ssh/id_rsa* server_env/deploykeys/
+```
+
+Add the keys to your favorite private git hosting company, 
+
+
+Add to `.ebextensions/options.config`
+
+```
+        APP_GIT_REPOSTIRY: "git@bitbucket.org:zzz/yyy.git"
+        APP_GIT_BRANCH: "master"
+```
+
+
+Deploy
+
+```
+eb deploy
+```
+
+
 ### I don't want to pay for Cloudfront, how do i rem ove it ?
 
 Just remove the file `.ebextensions/cdn.config`. 
