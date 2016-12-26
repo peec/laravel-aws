@@ -32,7 +32,13 @@ This can be used with [Elastic Beanstalk Multi Docker Container](http://docs.aws
 
 
 
-## Create your shiny laravel app in web folder.
+## Create your laravel app
+
+
+### Option 1. have the laravel app inside this folder
+
+
+#### Clone this repo and create a new laravel app
 
 ```
 git clone https://github.com/peec/laravel-aws ~/my-deploy-root
@@ -43,6 +49,7 @@ laravel new myapp
 mv myapp web
 ```
 
+#### The directory structure
 
 
 Directory structure should now be:
@@ -60,6 +67,47 @@ Directory structure should now be:
 You will work on your laravel app like you normally do inside the `web` folder. The web folder can be versioncontrolled in git like normal laravel projects is.
 
 When you push changes with `eb deploy`, elastic beanstalk will push up the web folder as-is, so don't forget to push nessecary changes and branch correctly inside the web folder before pushing `eb deploy`.
+
+### Option 2. have the laravel app separated in its own repoistory
+
+
+
+#### Private repositories
+
+Your web-app should probably be in some private repository e.g. on github or bitbucket. The deployment process will try 
+to clone this address, so ssh keys needs to be created and placed in `server_env/deploykeys`. 
+
+```
+ssh-keygen -t rsa
+cp -R ~/.ssh/id_rsa* server_env/deploykeys/
+```
+
+Add the keys to your favorite private git hosting company control panel,  E.g. github profile or bitbucket profile.
+
+
+#### Modify APP_GIT_REPOSITORY
+
+
+`.ebextensions/options.config` 
+
+```
+        APP_GIT_REPOSITORY: "git@bitbucket.org:zzz/yyy.git"
+        APP_GIT_BRANCH: "master"
+```
+
+#### Create a empty web folder
+
+```
+mkdir web
+```
+
+#### Deploy
+
+```
+eb deploy
+```
+
+
 
 
 ## Configure .ebextensions/options.config.dist
@@ -362,32 +410,6 @@ exit
 
 # Q / A
 
-
-### I want to keep my laravel app separated from this deploy configuration.
-
-
-
-```
-ssh-keygen -t rsa
-cp -R ~/.ssh/id_rsa* server_env/deploykeys/
-```
-
-Add the keys to your favorite private git hosting company control panel, 
-
-
-Add to `.ebextensions/options.config`
-
-```
-        APP_GIT_REPOSTIRY: "git@bitbucket.org:zzz/yyy.git"
-        APP_GIT_BRANCH: "master"
-```
-
-
-Deploy
-
-```
-eb deploy
-```
 
 
 ### I don't want to pay for Cloudfront, how do i rem ove it ?
