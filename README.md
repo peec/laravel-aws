@@ -365,14 +365,14 @@ exit
 
 ### I want to keep my laravel app separated from this deploy configuration.
 
-Okay.
+
 
 ```
 ssh-keygen -t rsa
 cp -R ~/.ssh/id_rsa* server_env/deploykeys/
 ```
 
-Add the keys to your favorite private git hosting company, 
+Add the keys to your favorite private git hosting company control panel, 
 
 
 Add to `.ebextensions/options.config`
