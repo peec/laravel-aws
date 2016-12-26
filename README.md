@@ -34,8 +34,17 @@ This can be used with [Elastic Beanstalk Multi Docker Container](http://docs.aws
 
 ## Create your laravel app
 
+You have two options:
+
+- (Option 1.) Have the laravel app inside a `web` folder in the root of this repo. **recommended**.
+- (Option 2.) Have the laravel app at a separate git repository, and configure so that on deploy it pulls the sources for your app via git.
+
+With option 1. you also can benefit of beanstalk app rollbacks etc. Recommended.
+
 
 ### Option 1. have the laravel app inside this folder
+
+With option 1 you have the benefit to rollback to previous app releases. Which is a big part of beanstalk.
 
 
 #### Clone this repo and create a new laravel app
