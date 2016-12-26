@@ -25,6 +25,13 @@ This can be used with [Elastic Beanstalk Multi Docker Container](http://docs.aws
 - AWS Cloudfront created for you to use. Env variable `CDN` refers to the CDN address, just use it right away for your assets.
 
 
+#### Optional
+
+Optional things that can easily be configured ( Take a look at the Q / A section ).
+
+- AWS SNS to send SMS via AWS SNS.
+- AWS SES to send emails.
+
 
 
 
@@ -459,7 +466,16 @@ Go to the AWS web console and add these environment variables under "Configurati
 
 By default the region is `region` inside the laravel/config/services.php ("ses" section) so you need to edit this in your app to your needs and redeploy.
 
-- RDS
+
+### How do I configure laravel to send sms via AWS SNS
+
+
+Just install this custom notification service provider:
+
+https://github.com/peec/aws-laravel-notification
+
+Configure the keys as you want.
+
 
 
 ### What resources do i pay for when using this?
