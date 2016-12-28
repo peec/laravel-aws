@@ -137,29 +137,14 @@ Configure these environment variables.
 
 | Variable               | Description                                                                        |
 | ---------------------- |:----------------------------------------------------------------------------------:|
-| AWS_ACCESS_KEY_ID      | Get this via AWS IAM                                                               |
-| AWS_SECRET_ACCESS_KEY  | Get this via AWS IAM                                                               |
+| AWS_ACCESS_KEY_ID      | Get this via AWS IAM (optional)                                                    |
+| AWS_SECRET_ACCESS_KEY  | Get this via AWS IAM (optional)                                                    |
 | GITHUB_OAUTH_TOKEN     | Token to get composer deps. You can get this in the github profile settings.       |
 | APP_KEY                | Set it to the laravel app key found in web/.env dir. (laravel dev copy).           |
 
 
-#### Custom policies
+#### Add custom policy  to the elasticbeanstalk-ec2-role
 
-**A note on the AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY .**
-
-These are needed to fetch the associated resources information (elasticache). And should have access to:
-
-```
-"ec2:Describe*",
-"cloudformation:Describe*",
-"elasticbeanstalk:Describe*"
-"ses.*"
-```
-
-
-
-
-**Add custom policy  to the elasticbeanstalk-ec2-role:**
 
 Add this ( IAM -> Roles -> aws-elasticbeanstalk-ec2-role -> Inline Policies -> Create Role Policy -> Custom Policy ) and here is what you add:
 
