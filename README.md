@@ -7,7 +7,7 @@ This can be used with [Elastic Beanstalk Multi Docker Container](http://docs.aws
 ## What is special about this setup?
 
 - Database is automatically configured. No configuration needed what so ever. (RDS)
-- Cache is setup on a shared memcache (elasticache) server . 
+- Cache is setup on a shared redis (elasticache) server . 
 - S3 bucket is automatically created for your app, so you can store uploaded files!
 - Cron that runs the scheduled laravel tasks.
 - Migrations are run on each deploy.
@@ -18,7 +18,7 @@ This can be used with [Elastic Beanstalk Multi Docker Container](http://docs.aws
 
 - AWS Elastic Beanstalk will handle deployments.
 - AWS Elastic Load Balancer with Auto scaling . Meaning you can have multiple EC2 instances running your app.
-- AWS ElastiCache configured as the cache (memcached) for laravel
+- AWS ElastiCache configured as the cache (redis) for laravel
 - AWS RDS for the database (mysql is default)
 - AWS S3 for storing uploaded assets (e.g. images).
 - AWS SQS for queues.
@@ -205,12 +205,28 @@ Lets configure the files needed with `env()` calls where needed.
 ```
 
 
-`app/config/session.php`
+`app/config/database.php`
 
 ```
  ....
     
-    'store' => env('SESSION_CACHE_STORE', null),
+
+    'redis' => [
+
+        'client' => 'phpredis',
+
+        'cluster' => false,
+
+        'default' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DATABASE', 0),
+            'read_timeout' => 60,
+        ],
+
+    ],
+
  ....
 ```
 
