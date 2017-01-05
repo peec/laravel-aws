@@ -6,7 +6,6 @@ option_settings:
         # AWS details so docker image can retrieve resources.
         AWS_ACCESS_KEY_ID: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         AWS_SECRET_ACCESS_KEY: "yyyyyyyyyyyyyyyyyyyyyyyyyyyy"
-        AWS_DEFAULT_REGION: "eu-west-1"
 
         # Github token
         GITHUB_OAUTH_TOKEN: "zzzzzzzzzzzzzzzzzzzzzzzzz"
@@ -16,7 +15,25 @@ option_settings:
         APP_DEBUG: false
         APP_URL: "http://localhost"
         APP_KEY: "base64:JIiitjB44NCn3ymIb0c+ogKLl4J4i7sLC81LfrogM7s"
+
+        # DB
         DB_CONNECTION: "mysql"
+
+        # Cache
+        CACHE_DRIVER: 'redis'
+        REDIS_DATABASE: 0
+
+        # Session
+        SESSION_DRIVER: 'redis'
+        SESSION_CONNECTION: 'default'
+
+        # Mail
+        MAIL_DRIVER: 'ses'
+        SES_KEY: ''
+        SES_SECRET: ''
+
+        # Queue
+        QUEUE_DRIVER: 'sqs'
 
         # PHP configuration
         PHP_MEMORY_LIMIT: "1G"
@@ -25,6 +42,37 @@ option_settings:
         # If web folder is in a separate structure, you can deploy by git repository.
         APP_GIT_REPOSITORY: ""
         APP_GIT_BRANCH: "master"
+
+
+
+
+        # Dynamic resources:
+        AWS_DEFAULT_REGION: "`{"Ref": "AWS::Region"}`"
+        SES_REGION: '`{"Ref": "AWS::Region"}`'
+
+        # CDN
+        CDN: '`{"Fn::GetAtt" : [ "MediaCDN", "DomainName" ]}`'
+
+        # S3
+        MEDIA_S3_REGION: '`{"Ref": "AWS::Region"}`'
+        MEDIA_S3_ACCESS_KEY: '`{"Ref" : "MediaAccess"}`'
+        MEDIA_S3_SECRET_KEY: '`{"Fn::GetAtt" : [ "MediaAccess", "SecretAccessKey"]}`'
+        MEDIA_S3_BUCKET: '`{"Ref" : "MediaBucket" }`'
+        MEDIA_S3_WEBSITE_URL: '`{"Fn::GetAtt": [ "MediaBucket", "WebsiteURL"]}`'
+        MEDIA_S3_SECURE_URL: '`{"Fn::Join" : ["", [ "https://", { "Fn::GetAtt" : [ "MediaBucket", "DomainName" ] } ]]}`'
+        MEDIA_S3_DOMAIN_NAME: '`{"Fn::GetAtt" : [ "MediaBucket", "DomainName" ]}`'
+
+        # Redis
+        REDIS_HOST: '`{"Fn::GetAtt": [ "MyElastiCache", "RedisEndpoint.Address"]}`'
+        REDIS_PORT: '`{"Fn::GetAtt": [ "MyElastiCache", "RedisEndpoint.Port"]}`'
+
+        # SQS
+        SQS_REGION: '`{"Ref": "AWS::Region"}`'
+        SQS_PREFIX: '`{"Ref": "LaravelSQSQueue" }`'
+        SQS_QUEUE: '`{"Fn::GetAtt" : [ "LaravelSQSQueue", "QueueName"]}`'
+        SQS_KEY: '`{"Ref" : "SQSAccess" }`'
+        SQS_SECRET: '`{"Fn::GetAtt" : [ "SQSAccess", "SecretAccessKey" ]}`'
+
 
     "aws:elasticbeanstalk:customoption":
         ElasticSearchInstanceCount: 1
