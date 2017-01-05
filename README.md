@@ -177,6 +177,7 @@ First we need to install some dependencies that laravel requires (also explained
 cd web
 composer require league/flysystem-aws-s3-v3 ~1.0
 composer require aws/aws-sdk-php ~3.0
+composer require predis/predis
 ```
 
 
@@ -226,6 +227,17 @@ Lets configure the files needed with `env()` calls where needed.
         ],
 
     ],
+
+ ....
+```
+
+`app/config/app.php`
+
+```
+ ....
+    
+   // REMOVE THIS LINE
+   'Redis' => Illuminate\Support\Facades\Redis::class,
 
  ....
 ```
