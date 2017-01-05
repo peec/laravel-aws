@@ -24,6 +24,12 @@
       "host": {
         "sourcePath": "/var/lib/varnish"
       }
+    },
+    {
+      "name": "env-file",
+      "host": {
+        "sourcePath": "/tmp/envs"
+      }
     }
 
   ],
@@ -83,6 +89,11 @@
         {
           "sourceVolume": "awseb-logs-php-app",
           "containerPath": "/src/storage/logs"
+        },
+        {
+          "sourceVolume": "env-file",
+          "containerPath": "/tmp/envs",
+          "readOnly": true
         }
       ]
     }
