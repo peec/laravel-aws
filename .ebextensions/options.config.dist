@@ -34,6 +34,8 @@ option_settings:
 
         # Queue
         QUEUE_DRIVER: 'sqs'
+        LARAVEL_QUEUE_WORKER_TIMEOUT: 60
+
 
         # PHP configuration
         PHP_MEMORY_LIMIT: "1G"
@@ -47,7 +49,7 @@ option_settings:
 
 
         # Dynamic resources:
-        AWS_DEFAULT_REGION: "`{"Ref": "AWS::Region"}`"
+        AWS_DEFAULT_REGION: '`{"Ref": "AWS::Region"}`'
         SES_REGION: '`{"Ref": "AWS::Region"}`'
 
         # CDN
@@ -57,10 +59,10 @@ option_settings:
         MEDIA_S3_REGION: '`{"Ref": "AWS::Region"}`'
         MEDIA_S3_ACCESS_KEY: '`{"Ref" : "MediaAccess"}`'
         MEDIA_S3_SECRET_KEY: '`{"Fn::GetAtt" : [ "MediaAccess", "SecretAccessKey"]}`'
+        MEDIA_S3_DOMAIN_NAME: '`{"Fn::GetAtt" : [ "MediaBucket", "DomainName" ]}`'
         MEDIA_S3_BUCKET: '`{"Ref" : "MediaBucket" }`'
         MEDIA_S3_WEBSITE_URL: '`{"Fn::GetAtt": [ "MediaBucket", "WebsiteURL"]}`'
         MEDIA_S3_SECURE_URL: '`{"Fn::Join" : ["", [ "https://", { "Fn::GetAtt" : [ "MediaBucket", "DomainName" ] } ]]}`'
-        MEDIA_S3_DOMAIN_NAME: '`{"Fn::GetAtt" : [ "MediaBucket", "DomainName" ]}`'
 
         # Redis
         REDIS_HOST: '`{"Fn::GetAtt": [ "MyElastiCache", "RedisEndpoint.Address"]}`'
