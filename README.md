@@ -4,28 +4,35 @@ For laravel 5.3+.
 
 This can be used with [Elastic Beanstalk Multi Docker Container](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create_deploy_docker_ecs.html).
 
+## What is special about this setup?
+
+- Database is automatically configured. No configuration needed what so ever. (RDS)
+- Cache is setup on a shared redis (elasticache) server . 
+- S3 bucket is automatically created for your app, so you can store uploaded files!
+- Cron that runs the scheduled laravel tasks.
+- Migrations are run on each deploy.
+- Queue tasks are automatically handeled by AWS SQS. Supervisord keeps laravel worker up to handle jobs.
+
+
 ## AWS Resources this setup uses out of the box
 
 - AWS Elastic Beanstalk will handle deployments.
 - AWS Elastic Load Balancer with Auto scaling . Meaning you can have multiple EC2 instances running your app.
-- AWS ElastiCache configured as the cache (memcached) for laravel
+- AWS ElastiCache configured as the cache (redis) for laravel
 - AWS RDS for the database (mysql is default)
 - AWS S3 for storing uploaded assets (e.g. images).
 - AWS SQS for queues.
 - AWS Cloudfront created for you to use. Env variable `CDN` refers to the CDN address, just use it right away for your assets.
 
 
+#### Optional
 
-## A note about the configured resources
+Optional things that can easily be configured ( Take a look at the Q / A section ).
+
+- AWS SNS to send SMS via AWS SNS.
+- AWS SES to send emails.
 
 
-**Any resources that you create with configuration files are tied to the lifecycle of your environment and will be lost if you terminate your environment or remove the configuration file.**
-
-This means, if you remove the `.ebextensions/s3.config` file, the s3 container holding all your uploaded files WILL BE DELETED. So be careful.
-
-Same goes with the database, it follows the environment - if you don't set it up manually. So you might want to set some of these resources up manually like the RDS and S3.
-
-Otherwise its fine that the sqs, elasticache is setup following the environment. 
 
 
 # Getting Started
@@ -198,12 +205,28 @@ Lets configure the files needed with `env()` calls where needed.
 ```
 
 
-`app/config/session.php`
+`app/config/database.php`
 
 ```
  ....
     
-    'store' => env('SESSION_CACHE_STORE', null),
+
+    'redis' => [
+
+        'client' => 'phpredis',
+
+        'cluster' => false,
+
+        'default' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DATABASE', 0),
+            'read_timeout' => 60,
+        ],
+
+    ],
+
  ....
 ```
 
