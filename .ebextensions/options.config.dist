@@ -70,8 +70,8 @@ option_settings:
 
         # SQS
         SQS_REGION: '`{"Ref": "AWS::Region"}`'
-        SQS_PREFIX: '`{"Ref": "LaravelSQSQueue" }`'
-        SQS_QUEUE: '`{"Fn::GetAtt" : [ "LaravelSQSQueue", "QueueName"]}`'
+        SQS_QUEUE: '`{"Ref": "LaravelSQSQueue" }`'
+        SQS_QUEUE_NAME: '`{"Fn::GetAtt" : [ "LaravelSQSQueue", "QueueName"]}`'
         SQS_KEY: '`{"Ref" : "SQSAccess" }`'
         SQS_SECRET: '`{"Fn::GetAtt" : [ "SQSAccess", "SecretAccessKey" ]}`'
 

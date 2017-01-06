@@ -262,16 +262,15 @@ Lets configure the files needed with `env()` calls where needed.
 ```
  ....
     
-
+    
     'sqs' => [
         'driver' => 'sqs',
         'key' => env('SQS_KEY'),
         'secret' => env('SQS_SECRET'),
-        'prefix' => env('SQS_PREFIX'),
+        'prefix' => null,
         'queue' => env('SQS_QUEUE'),
         'region' => env('SQS_REGION'),
     ],
-
 ....
 ```
 
