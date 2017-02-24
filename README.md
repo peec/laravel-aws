@@ -350,6 +350,9 @@ Lets create a new environment for the production env.
 
 Adjust things according to needs.
 
+**Note: make sure the user executing the eb create command has privileges to create IAM users.**
+
+
 ```
 cd ~/my-deploy-root
 eb create --database --database.engine mysql --database.instance db.t2.micro --database.size 10 -i t2.micro --database.username ebroot --database.password mydbpassword321 myapp-prod
